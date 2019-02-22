@@ -1,0 +1,9 @@
+---
+- name: install the iis web service and create simple web site
+  hosts: all
+
+  tasks:
+    - name: remove iis
+      win_feature:
+        name: Web-Server
+        state: absent
