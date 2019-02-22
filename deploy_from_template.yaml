@@ -7,7 +7,7 @@
     vcenter_ip: 
     vcenter_username: 
     vcenter_password: 
-    vm_name: win-server-vm-0001
+    vm_name: win-server-vm-000X
     template: WinServer2016_templ0001
     guest_domain: ansibleworkshop.com
     vm_password:
@@ -27,11 +27,8 @@
         folder: ansiblevms
         customization:
           domain: "{{ guest_domain }}"
-          #dns_servers:
-          #  - 8.9.9.9
-          #  - 7.8.8.9
           dns_suffix:
-            - ansibleworkshop.com
+            - "{{ guest_domain }}"
           password: "{{ vm_password }}"
         networks:
         - name: VM Network
