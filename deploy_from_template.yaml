@@ -1,0 +1,40 @@
+---
+- name: Create a virtual machine on vSphere
+  hosts: localhost
+  gather_facts: no
+  vars:
+    vcenter_ip: 
+    vcenter_username: 
+    vcenter_password: 
+    vm_name: win-server-vm-0001
+    template: WinServer2016_templ
+    guest_domain: ansibleworkshop.com
+    vm_ip: 10.10.10.101
+    vm_netmask: 255.255.255.0
+  
+  tasks: 
+    - name: Connect to vCenter and Deploy from template
+      vmware_guest:
+        hostname: "{{ vcenter_ip }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: False
+        name: "{{ vm_name }}"
+        state: poweredon
+        template: "{{ template }}"
+        cluster: Cluster01
+        datacenter: DC01
+        folder: ansiblevms
+        customization:
+          domain: "{{ guest_domain }}"
+          dns_servers:
+            - 8.9.9.9
+            - 7.8.8.9
+          dns_suffix:
+            - ansibleworkshop.com
+        networks:
+        - name: VM Network
+          mac: aa:bb:dd:aa:00:14
+          ip: "{{ vm_ip }}"
+          netmask: "{{ vm_netmask }}"
+        wait_for_ip_address: yes
