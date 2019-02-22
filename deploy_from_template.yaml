@@ -1,6 +1,7 @@
 ---
 - name: Create a virtual machine on vSphere
   hosts: localhost
+  connection: local
   gather_facts: no
   vars:
     vcenter_ip: 
@@ -9,8 +10,6 @@
     vm_name: win-server-vm-0001
     template: WinServer2016_templ
     guest_domain: ansibleworkshop.com
-    vm_ip: 10.10.10.101
-    vm_netmask: 255.255.255.0
   
   tasks: 
     - name: Connect to vCenter and Deploy from template
@@ -27,9 +26,9 @@
         folder: ansiblevms
         customization:
           domain: "{{ guest_domain }}"
-          dns_servers:
-            - 8.9.9.9
-            - 7.8.8.9
+          #dns_servers:
+          #  - 8.9.9.9
+          #  - 7.8.8.9
           dns_suffix:
             - ansibleworkshop.com
         networks:
