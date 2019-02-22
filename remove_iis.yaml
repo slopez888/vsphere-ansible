@@ -1,5 +1,5 @@
 ---
-- name: install the iis web service and create simple web site
+- name: remove the iis web service and  simple web site
   hosts: all
 
   tasks:
