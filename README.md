@@ -1,1 +1,1 @@
-# ansible-vsphere
+# vsphere-ansible
