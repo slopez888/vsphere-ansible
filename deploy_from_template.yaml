@@ -33,7 +33,4 @@
             - ansibleworkshop.com
         networks:
         - name: VM Network
-          mac: aa:bb:dd:aa:00:14
-          ip: "{{ vm_ip }}"
-          netmask: "{{ vm_netmask }}"
         wait_for_ip_address: yes
