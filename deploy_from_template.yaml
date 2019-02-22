@@ -10,6 +10,7 @@
     vm_name: win-server-vm-0001
     template: WinServer2016_templ0001
     guest_domain: ansibleworkshop.com
+    vm_password:
   
   tasks: 
     - name: Connect to vCenter and Deploy from template
@@ -31,6 +32,7 @@
           #  - 7.8.8.9
           dns_suffix:
             - ansibleworkshop.com
+          password: "{{ vm_password }}"
         networks:
         - name: VM Network
         wait_for_ip_address: yes
