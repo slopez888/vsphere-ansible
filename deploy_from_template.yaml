@@ -8,7 +8,7 @@
     vcenter_username: 
     vcenter_password: 
     vm_name: win-server-vm-0001
-    template: WinServer2016_templ
+    template: WinServer2016_templ0001
     guest_domain: ansibleworkshop.com
   
   tasks: 
