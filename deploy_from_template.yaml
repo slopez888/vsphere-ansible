@@ -33,3 +33,55 @@
         networks:
         - name: VM Network
         wait_for_ip_address: yes
+      register: deploy_vm
+
+    # added everything below here for SNOW use case
+    
+    - name: include vars
+      include_vars: incident_vars.yaml
+
+    - name: look at VM register
+      debug:
+        var: deploy_vm
+
+    - name: SERVICENOW incident updated and resolved if deploy succeeded
+      snow_record:
+        username: "{{username}}"
+        password: "{{password}}"
+        instance: "{{instance}}"
+        number: "{{number}}"
+        state: present
+        table: incident
+        data:
+          caller_id: "System Administrator"
+          comments: "VM provisioning has succeeded on vSphere Cluster 01. This ticket was updated and resolved by Ansible Tower API call in a verification playboook. \n--------\n The VM metadata is This {{deploy_vm}}\n--------\n "
+          incident_state: 6
+      register: snow_var
+      delegate_to: localhost
+      #when: errorCode.changed
+
+    - name: DEBUG SNOW_VAR
+      debug:
+        var: snow_var.record.state
+
+
+    - name: SERVICENOW incident closed if  validation succeeded
+      snow_record:
+        username: "{{username}}"
+        password: "{{password}}"
+        instance: "{{instance}}"
+        number: "{{number}}"
+        state: present
+        table: incident
+        data:
+          caller_id: "System Administrator"
+          comments: "The deployment job has now been validated and completed}. This ticket was closed by Ansible Tower API call in a validation playboook. \n--------\n \n--------\n "
+          incident_state: 7
+      register: snow_var
+      delegate_to: localhost
+      #when: errorCode.changed
+
+    - name: DEBUG SNOW_VAR
+      debug:
+        var: snow_var.record
+
