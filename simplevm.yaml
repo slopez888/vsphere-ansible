@@ -9,6 +9,7 @@
     vcenter_password: 
     vm_name: win-server-vm-000X
     vm_network: Test|Test|EPG_1901
+    vm_vlan:
     template: WinServer2016_templ0001
     guest_domain: ansibleworkshop.com
     vm_password:
@@ -33,7 +34,12 @@
             - "{{ guest_domain }}"
           password: "{{ vm_password }}"
         networks:
-        - name: "{{vm_network}}"
+#        - name: "{{vm_network}}"
+        - vlan: "{{vm_vlan}}"
+        - type: static
+        - ip: 192.168.1.100
+        - netmask: 255.255.255.0
+        - gateway: 192.168.1.1
         wait_for_ip_address: yes
       register: deploy_vm
 
