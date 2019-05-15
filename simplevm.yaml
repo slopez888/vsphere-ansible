@@ -36,11 +36,10 @@
         networks:
         - type: static
         - name: "{{vm_network}}"
-       # - vlan: "{{vm_vlan}}"
-        - ip: 192.168.1.100
-        - netmask: 255.255.255.0
-        - gateway: 192.168.1.1
-        wait_for_ip_address: yes
+          ip: 192.168.1.100
+          netmask: 255.255.255.0
+          gateway: 192.168.1.1
+          wait_for_ip_address: yes
       register: deploy_vm
 
     - name: look at VM register
