@@ -1,6 +1,8 @@
 ---
 - name: install the iis web service
   hosts: all
+  vars:
+    iis_test_message: 
 
   tasks:
     - name: install iis

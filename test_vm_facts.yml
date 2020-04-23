@@ -1,0 +1,20 @@
+---
+- name: Sample vSphere test playbook
+  hosts: localhost
+  vars:
+    vcsim: 192.168.1.225
+    password: 
+
+  tasks: 
+    - name: List all VMs generated using vC simulator
+      vmware_vm_facts:
+        validate_certs: no
+        hostname: "{{ vcsim }}"
+        username: Administrator@vsphere.local
+        password: "{{ password }}"
+      register: vm_list
+
+    #- debug: "msg={{ vm_lists['virtual_machines'].keys() }}"
+
+    - debug: 
+        var: vm_list.virtual_machines
