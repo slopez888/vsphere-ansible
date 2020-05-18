@@ -2,15 +2,16 @@
 - name: Sample vSphere test playbook
   hosts: localhost
   vars:
-    vcsim: 192.168.1.225
+    vcip: 192.168.1.225
+    username: Administrator@vsphere.local
     password: 
 
   tasks: 
     - name: List all VMs generated using vSphere API
       vmware_vm_facts:
         validate_certs: no
-        hostname: "{{ vcsim }}"
-        username: Administrator@vsphere.local
+        hostname: "{{ vcip }}"
+        username:  "{{ username }}"
         password: "{{ password }}"
       register: vm_list
 
