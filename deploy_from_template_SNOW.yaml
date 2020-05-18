@@ -23,7 +23,7 @@
         password: "{{password}}"
         instance: "{{instance}}"
         state: present
-        table: service_request
+        table: incident
         data:
           short_description: "A VM deployment has been started and requested"
           severity: 1
