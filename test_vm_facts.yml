@@ -6,7 +6,7 @@
     password: 
 
   tasks: 
-    - name: List all VMs generated using vC simulator
+    - name: List all VMs generated using vSphere API
       vmware_vm_facts:
         validate_certs: no
         hostname: "{{ vcsim }}"
