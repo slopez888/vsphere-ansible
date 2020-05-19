@@ -16,8 +16,8 @@
       register: update_result
       
     - name: reboot and wait for host if updates change require it
-        win_reboot:
-        when: update_result.reboot_required
+      win_reboot:
+      when: update_result.reboot_required
 
     - debug:
         msg: update_result
