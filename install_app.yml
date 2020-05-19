@@ -1,9 +1,14 @@
 ---
 - hosts: windows
-  name: his is my Windows application management playbook
+  name: This is my Windows application management playbook
+  vars:
+    packages:
+      - googlechrome
+      - jre8
+      - avgantivirusfree
 
   tasks:
-  - name: Install Chrome
+  - name: Install Windows Packages
     win_chocolatey:
-      name: googlechrome
+      name: "{{ packages }}"
       state: present
