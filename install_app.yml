@@ -1,5 +1,5 @@
 ---
-- hosts: windows
+- hosts: all
   name: his is my Windows application management playbook
   vars:
     packages:
