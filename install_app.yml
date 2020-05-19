@@ -1,0 +1,9 @@
+---
+- hosts: windows
+  name: his is my Windows application management playbook
+
+  tasks:
+  - name: Install Chrome
+    win_chocolatey:
+      name: googlechrome
+      state: present
