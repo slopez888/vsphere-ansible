@@ -1,11 +1,20 @@
 ---
-- name: ensure common OS updates are current
-  win_updates:
-    category_names: “{{ categories }}”
-    blacklist: “{{ blacklist_package | default(omit, true) }}”
-    whitelist: “{{ whitelist_package | default(omit, true) }}”
-  register: update_result
+- hosts: all
+  name: This is a play within a playbook
+  vars:
+    categories:
+    blacklist_package:
+    whitelist_package:
 
-- name: reboot and wait for host if updates change require it
-  win_reboot:
-  when: update_result.reboot_required
+  tasks:
+
+    - name: ensure common OS updates are current
+      win_updates:
+        category_names: “{{ categories }}”
+        blacklist: “{{ blacklist_package | default(omit, true) }}”
+        whitelist: “{{ whitelist_package | default(omit, true) }}”
+      register: update_result
+      
+    - name: reboot and wait for host if updates change require it
+        win_reboot:
+        when: update_result.reboot_required
