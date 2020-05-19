@@ -1,10 +1,10 @@
 ---
-- hosts: all
-  name: This is my Windows application management playbook
+- hosts: windows
+  name: his is my Windows application management playbook
   vars:
     packages:
       - googlechrome
-      - jre8
+      #- jre8
       - avgantivirusfree
 
   tasks:
@@ -12,3 +12,6 @@
     win_chocolatey:
       name: "{{ packages }}"
       state: present
+      ignore_checksums: true
+    become_user: Administrator
+    become_method: runas
