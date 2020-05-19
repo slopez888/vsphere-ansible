@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  name: his is my Windows application management playbook
+  name: Windows application management playbook
   vars:
     packages:
       - googlechrome
