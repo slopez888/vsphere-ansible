@@ -10,7 +10,7 @@
 
     - name: ensure common OS updates are current
       win_updates:
-        category_names: “{{ categories }}”
+        #category_names: “{{ categories }}”
         #blacklist: “{{ blacklist_package | default(omit, true) }}”
         #whitelist: “{{ whitelist_package | default(omit, true) }}”
         state: installed
