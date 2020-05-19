@@ -14,8 +14,9 @@
       ignore_checksums: true
     become_user: Administrator
     become_method: runas
-    
-      win_chocolatey_facts:
+   
+   - name: Gather facts from chocolatey
+     win_chocolatey_facts:
 
    - name: Displays the Configuration
      debug:
