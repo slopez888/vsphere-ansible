@@ -11,6 +11,7 @@
     template: WinServer2016_templ0001
     guest_domain: ansibleworkshop.com
     vm_password:
+    vm_network:
   
   tasks: 
   
@@ -32,7 +33,7 @@
             - "{{ guest_domain }}"
           password: "{{ vm_password }}"
         networks:
-        - name: VM Network
+        - name: "{{ vm_network }}"
         wait_for_ip_address: yes
       register: deploy_vm
 
