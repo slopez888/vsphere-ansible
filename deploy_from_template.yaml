@@ -34,6 +34,7 @@
           password: "{{ vm_password }}"
         networks:
         - name: "{{ vm_network }}"
+        - name: "{{ vm_network }}"
         wait_for_ip_address: yes
       register: deploy_vm
 
