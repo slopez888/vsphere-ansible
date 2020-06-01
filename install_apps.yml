@@ -2,6 +2,7 @@
 - hosts: all
   name: Windows application management playbook
   vars:
+    state: present
     packages:
       - googlechrome
       - avgantivirusfree
@@ -10,7 +11,7 @@
   - name: Install Windows Packages
     win_chocolatey:
       name: "{{ packages }}"
-      state: present
+      state: "{{ state }}"
       ignore_checksums: true
     become_user: Administrator
     become_method: runas
