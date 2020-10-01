@@ -1,0 +1,68 @@
+---
+
+- name: Ensure required DSC module is available
+  win_psmodule:
+    name: UpdateServicesDsc
+    state: present
+
+- name: Install required WSUS server features
+  win_dsc:
+    resource_name: windowsfeature
+    Name: "{{ item }}"
+  loop:
+    - UpdateServices
+    - UpdateServices-WidDB
+    - UpdateServices-Services
+    - UpdateServices-RSAT
+    - UpdateServices-API
+
+- name: Ensure Content directory exists
+  win_file:
+    path: '{{ wsus_content_dir }}'
+    state: directory
+
+- name: Ensure WSUS server is deployed
+  win_dsc:
+    resource_name: UpdateServicesServer
+    Ensure: Present
+    ContentDir: '{{ wsus_content_dir }}'
+    Languages: en
+    Products: "{{ wsus_products }}"
+    Classifications:
+      - "{{ wsus_category_names['CriticalUpdates'].id }}"
+      - "{{ wsus_category_names['DefinitionUpdates'].id }}"
+      - "{{ wsus_category_names['SecurityUpdates'].id }}"
+      - "{{ wsus_category_names['ServicePacks'].id }}"
+      - "{{ wsus_category_names['UpdateRollups'].id }}"
+      - "{{ wsus_category_names['Updates'].id }}"
+    UpstreamServerName: "{{ wsus_upstream_server_name | default(omit) }}"
+    UpstreamServerPort: "{{ wsus_upstream_server_port | default(omit) }}"
+    UpstreamServerSSL: "{{ wsus_upstream_server_ssl | default(omit) }}"
+    Synchronize: True
+    SynchronizeAutomatically: True
+    SynchronizeAutomaticallyTimeOfDay: '01:30:00'
+    ClientTargetingMode: "{{ wsus_client_targeting_mode }}"
+
+- name: Apply approval rules
+  win_dsc:
+    resource_name: UpdateServicesApprovalRule
+    Name: "{{ wsus_category_names[item].name }}"
+    Classifications: "{{ wsus_category_names[item].id }}"
+    Enabled: True
+    RunRuleNow: True
+  loop:
+    - CriticalUpdates
+    - DefinitionUpdates
+    - SecurityUpdates
+    - ServicePacks
+    - UpdateRollups
+    - Updates
+
+- name: Clean up updates
+  win_dsc:
+    resource_name: UpdateServicesCleanup
+    Ensure: Present
+    DeclineExpiredUpdates: True
+    DeclineSupersededUpdates: True
+    CleanupObsoleteUpdates: True
+    CleanupUnneededContentFiles: True

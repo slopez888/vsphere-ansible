@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Report Table for Windows Updates per Host</title>
+   </head>
+
+   <body>
+      <table border = "1" cellpadding = "5" cellspacing = "5">
+         <tr>
+            <th>Windows Host</th>
+            <th>OS</th>
+            <th>List of Required Updates/Packages</th>
+         </tr>
+{% for target_host in ansible_play_hosts_all %}
+{% if hostvars[target_host].ansible_distribution is defined %}
+         <tr>
+            <td>{{ target_host }}</td>
+            <td>{{ hostvars[target_host].ansible_distribution }}</td>
+            <td>
+               <ul>
+{% if hostvars[target_host].available_updates.updates is defined and hostvars[target_host].available_updates.found_update_count > 0  %}
+{% for key, value in hostvars[target_host].available_updates.updates.items() %}
+                  <li>{{ value.title }}</li>
+{% endfor %}
+{% else %}
+                  <li>Compliant</li>
+{% endif %}
+               </ul>
+            </td>
+         </tr>
+{% endif %}
+{% endfor %}
+      </table>
+   </body>
+</html>
