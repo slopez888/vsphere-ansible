@@ -1,6 +1,6 @@
 ---
 - name: Install AD
-  hosts: localhost
+  hosts: all
   gather_facts: False
  
 - name: Configure Active Directory Domain Controller
