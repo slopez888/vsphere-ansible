@@ -12,6 +12,7 @@
     guest_domain: ansibleworkshop.com
     vm_password:
     vm_network:
+    cluster: Cluster01
   
   tasks: 
   
@@ -24,7 +25,7 @@
         name: "{{ vm_name }}"
         state: poweredon
         template: "{{ template }}"
-        cluster: Cluster01
+        cluster: "{{ cluster }}"
         datacenter: DC01
         folder: ansiblevms
         customization:
