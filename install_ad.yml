@@ -4,7 +4,7 @@
   gather_facts: False
  
 - name: Configure Active Directory Domain Controller
-  #hosts: windows_domain_controllers
+  hosts: all #windows_domain_controllers
   gather_facts: True
   #vars_files:
     #- [ 'vars/custom.yml', 'vars/main.yml' ]
