@@ -13,6 +13,7 @@
     vm_password:
     vm_network:
     cluster: Cluster01
+    datastore:
   
   tasks: 
   
@@ -28,6 +29,7 @@
         cluster: "{{ cluster }}"
         datacenter: DC01
         folder: ansiblevms
+        datastore: "{{ datastore }}"
         customization:
           domain: "{{ guest_domain }}"
           dns_suffix:
